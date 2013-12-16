@@ -47,7 +47,7 @@ public class DisseminationRunnableComponent extends AbstractRunnableComponent {
      */
     @Override
     public String getEventID() {
-        return "JPylyzed";
+        return "Dissemination_Copy_Generated";
     }
 
     @Override

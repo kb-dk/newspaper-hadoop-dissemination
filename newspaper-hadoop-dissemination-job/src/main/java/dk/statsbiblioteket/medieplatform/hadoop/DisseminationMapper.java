@@ -7,6 +7,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,21 +22,24 @@ public class DisseminationMapper extends Mapper<LongWritable, Text, Text, Text> 
 
     /**
      * run command on the given file
+     *
      * @param dataPath     the path to the jp2 file
      * @param commandPath the path to the executable
      *
+     * @param outputFolder
      * @return the path to the converted file
      * @throws java.io.IOException if the execution of jpylyzer failed in some fashion (not invalid file, if the program
      *                     returned non-zero returncode)
      */
-    protected static String convert(String dataPath, String commandPath) throws IOException {
-        ProcessRunner runner = new ProcessRunner(commandPath, dataPath);
-        log.info("Running command '" + commandPath + " " + dataPath + "'");
+    protected static String convert(String dataPath, String commandPath, String outputFolder) throws IOException {
+
+        String resultPath = getConvertedPath(dataPath,outputFolder);
+        String[] commandLine = makeCommandLine(dataPath,commandPath,resultPath);
+        ProcessRunner runner = new ProcessRunner(commandLine);
+
         Map<String, String> myEnv = new HashMap<String, String>(System.getenv());
         runner.setEnviroment(myEnv);
         runner.setOutputCollectionByteSize(Integer.MAX_VALUE);
-
-        String resultPath = getConvertedPath(dataPath);
 
         //this call is blocking
         runner.run();
@@ -45,24 +49,38 @@ public class DisseminationMapper extends Mapper<LongWritable, Text, Text, Text> 
             return resultPath;
         } else {
             String message
-                    = "failed to run jpylyzer, returncode:" + runner.getReturnCode() + ", stdOut:" + runner.getProcessOutputAsString() + " stdErr:" + runner.getProcessErrorAsString();
+                    = "failed to run  returncode:" + runner.getReturnCode() + ", stdOut:" + runner.getProcessOutputAsString() + " stdErr:" + runner.getProcessErrorAsString();
             log.error(message);
             throw new IOException(message);
         }
     }
 
-    private static String getConvertedPath(String dataPath) {
-        return null;  //To change body of created methods use File | Settings | File Templates.
+    private static String[] makeCommandLine(String dataPath, String commandPath, String resultFile) {
+        //TODO IMPLEMENT THIS
+        return new String[]{
+                commandPath,
+                "-i",
+                dataPath,
+                "-o",
+                resultFile
+        };
+    }
+
+    private static String getConvertedPath(String dataPath, String outputFolder) {
+        //TODO IMPLEMENT THIS
+        return new File(outputFolder,new File(dataPath).getName()).getPath(); //Absolute path?
     }
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         try {
+
+            String outputFolder = context.getConfiguration()
+                                                     .get(ConfigConstants.DISSEMINATION_FOLDER);
             String commandPath = context.getConfiguration()
-                                         .get(ConfigConstants.JPYLYZER_PATH);
+                                         .get(ConfigConstants.KAKADU_PATH);
 
-
-            String disseminationCopyPath = convert(value.toString(), commandPath);
+            String disseminationCopyPath = convert(value.toString(), commandPath, outputFolder);
 
             context.write(value, new Text(disseminationCopyPath));
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 package dk.statsbiblioteket.medieplatform.hadoop;
 
+import dk.statsbiblioteket.medieplatform.autonomous.ConfigConstants;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.mapreduce.MapDriver;
@@ -23,12 +24,14 @@ public class DisseminationMapperTest {
         MapDriver<LongWritable, Text, Text, Text> mapDriver;
         DisseminationMapper mapper = new DisseminationMapper();
         mapDriver = MapDriver.newMapDriver(mapper);
-        mapDriver.getConfiguration().set(dk.statsbiblioteket.medieplatform.autonomous.ConfigConstants.JPYLYZER_PATH, "echo");
+        mapDriver.getConfiguration().set(ConfigConstants.KAKADU_PATH, "echo");
 
         mapDriver.withInput(new LongWritable(1), new Text("ein"));
         mapDriver.withOutput(new Text("ein"), new Text("ein"));
         mapDriver.runTest();
     }
+
+
 
 
     private String getAbsolutePath(String name) throws URISyntaxException {

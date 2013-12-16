@@ -44,10 +44,7 @@ public class DisseminationJob implements Tool {
     @Override
     public int run(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Configuration configuration = getConf();
-        configuration.setIfUnset(ConfigConstants.JPYLYZER_PATH, "jpylyzer.py");
-        configuration.setIfUnset(ConfigConstants.DOMS_URL, "http://achernar:7880/fedora");
-        configuration.setIfUnset(ConfigConstants.DOMS_USERNAME, "fedoraAdmin");
-        configuration.setIfUnset(ConfigConstants.DOMS_PASSWORD, "fedoraAdminPass");
+        configuration.setIfUnset(ConfigConstants.KAKADU_PATH, "jpylyzer.py");
 
         Job job = Job.getInstance(configuration);
         job.setJobName("Newspaper " + getClass().getSimpleName() + " " + configuration.get(ConfigConstants.BATCH_ID));
