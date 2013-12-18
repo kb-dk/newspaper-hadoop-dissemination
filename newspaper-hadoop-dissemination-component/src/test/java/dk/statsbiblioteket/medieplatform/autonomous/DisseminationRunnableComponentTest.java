@@ -1,5 +1,6 @@
 package dk.statsbiblioteket.medieplatform.autonomous;
 
+import dk.statsbiblioteket.medieplatform.hadoop.DisseminationJob;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -14,7 +15,7 @@ import static org.testng.Assert.assertTrue;
 public class DisseminationRunnableComponentTest {
 
 
-    @Test(groups = "integrationTest", enabled = false)//Disabled until it can be adapted to KAKADU
+    @Test(groups = "integrationTest", enabled = true)
     public void testDoWorkOnBatch() throws Exception {
         String pathToProperties = System.getProperty("integration.test.newspaper.properties");
         Properties properties = new Properties();
@@ -23,14 +24,20 @@ public class DisseminationRunnableComponentTest {
         Batch batch = new Batch("400022028241");
 
         properties.setProperty(
-                ConfigConstants.JOB_FOLDER, "inputFiles-dissemination-cibuild");
+                ConfigConstants.JOB_FOLDER, "inputFiles-dissemination");
         properties.setProperty(
                 ConfigConstants.PREFIX,
                 "/net/zone1.isilon.sblokalnet/ifs/archive/bitmag-devel01-data/cache/avisbits/perm/avis/");
         properties.setProperty(ConfigConstants.HADOOP_USER, "newspapr");
-        //TODO
-        properties.setProperty(ConfigConstants.KAKADU_PATH, "/usr/lib/python2.7/site-packages/jpylyzer/jpylyzer.py");
         properties.setProperty(ConfigConstants.FILES_PER_MAP_TASK, "5");
+
+
+        properties.setProperty(DisseminationJob.JP2K_TO_PGM_COMMAND,"kdu_expand -num_threads 1 -fprec 8M");
+        properties.setProperty(DisseminationJob.JP2K_TO_PGM_OUTPUT_PATH,"/tmp/");
+        properties.setProperty(DisseminationJob.PGM_TO_JP2K_COMMAND,"kdu_compress -rate 0.7,0.5,0.35,0.25,0.18,0.125,0.088,0.0625,0.04419,0.03125,0.0221,0.015625 Cmodes=BYPASS Cuse_sop=yes Cuse_eph=yes Clevels=6 Cprecincts={256,256},{256,256},{128,128} Corder=RPCL ORGtparts=R Cblk={64,64} ORGgen_plt=yes Stiles={1024,1024}");
+        properties.setProperty(DisseminationJob.PGM_TO_JP2K_OUTPUT_PATH,"/tmp/");
+
+
 
         clean(properties.getProperty(ConfigConstants.JOB_FOLDER));
 
