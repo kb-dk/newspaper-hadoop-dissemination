@@ -71,20 +71,25 @@ public class DisseminationJob implements Tool {
                 Text.class,
                 new Configuration(false));
 
-        Configuration mapAConf = new Configuration(false);
-        mapAConf.set(ConvertMapper.HADOOP_CONVERTER_OUTPUT_PATH, configuration.get(JP2K_TO_PGM_OUTPUT_PATH));
-        mapAConf.set(ConvertMapper.HADOOP_CONVERTER_PATH, configuration.get(JP2K_TO_PGM_COMMAND));
-        mapAConf.set(ConvertMapper.HADOOP_CONVERTER_OUTPUT_EXTENSION_PATH, ".pgm");
+        /*Original jp2 to temp pgm mapper*/
+        Configuration origToPgmMapperConf = new Configuration(false);
+        origToPgmMapperConf.set(ConvertMapper.HADOOP_CONVERTER_OUTPUT_PATH, configuration.get(JP2K_TO_PGM_OUTPUT_PATH));
+        origToPgmMapperConf.set(ConvertMapper.HADOOP_CONVERTER_PATH, configuration.get(JP2K_TO_PGM_COMMAND));
+        origToPgmMapperConf.set(ConvertMapper.HADOOP_CONVERTER_OUTPUT_EXTENSION_PATH, ".pgm");
         ChainMapper.addMapper(
-                job, ConvertMapper.class, Text.class, Text.class, Text.class, Text.class, mapAConf);
+                job, ConvertMapper.class, Text.class, Text.class, Text.class, Text.class, origToPgmMapperConf);
 
-        Configuration mapBConf = new Configuration(false);
-        mapBConf.set(ConvertMapper.HADOOP_CONVERTER_OUTPUT_PATH, configuration.get(PGM_TO_JP2K_OUTPUT_PATH));
-        mapBConf.set(
+
+        /* temp pgm to presentation jp2 mapper */
+        Configuration pgmToDisseminationMapperConf = new Configuration(false);
+        pgmToDisseminationMapperConf.set(ConvertMapper.HADOOP_CONVERTER_OUTPUT_PATH, configuration.get(PGM_TO_JP2K_OUTPUT_PATH));
+        pgmToDisseminationMapperConf.set(
                 ConvertMapper.HADOOP_CONVERTER_PATH, configuration.get(PGM_TO_JP2K_COMMAND));
-        mapBConf.set(ConvertMapper.HADOOP_CONVERTER_OUTPUT_EXTENSION_PATH, ".jp2");
+        pgmToDisseminationMapperConf.set(ConvertMapper.HADOOP_CONVERTER_OUTPUT_EXTENSION_PATH, ".jp2");
         ChainMapper.addMapper(
-                job, ConvertMapper.class, Text.class, Text.class, Text.class, Text.class, mapBConf);
+                job, PgmToDisseminationMapper.class, Text.class, Text.class, Text.class, Text.class, pgmToDisseminationMapperConf);
+
+
 
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
