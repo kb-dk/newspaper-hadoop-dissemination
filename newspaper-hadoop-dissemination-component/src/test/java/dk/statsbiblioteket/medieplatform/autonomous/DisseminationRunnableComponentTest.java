@@ -32,11 +32,12 @@ public class DisseminationRunnableComponentTest {
         properties.setProperty(ConfigConstants.FILES_PER_MAP_TASK, "5");
 
 
-        properties.setProperty(DisseminationJob.JP2K_TO_PGM_COMMAND,"kdu_expand -num_threads 1 -fprec 8M");
-        properties.setProperty(DisseminationJob.JP2K_TO_PGM_OUTPUT_PATH,"/tmp/");
-        properties.setProperty(DisseminationJob.PGM_TO_JP2K_COMMAND,"kdu_compress -rate 0.7,0.5,0.35,0.25,0.18,0.125,0.088,0.0625,0.04419,0.03125,0.0221,0.015625 Cmodes=BYPASS Cuse_sop=yes Cuse_eph=yes Clevels=6 Cprecincts={256,256},{256,256},{128,128} Corder=RPCL ORGtparts=R Cblk={64,64} ORGgen_plt=yes Stiles={1024,1024}");
-        properties.setProperty(DisseminationJob.PGM_TO_JP2K_OUTPUT_PATH,"/tmp/");
-
+        properties.setProperty(DisseminationJob.JP2K_TO_PGM_COMMAND, "kdu_expand -num_threads 1 -fprec 8M");
+        properties.setProperty(DisseminationJob.JP2K_TO_PGM_OUTPUT_PATH, "/tmp/");
+        properties.setProperty(
+                DisseminationJob.PGM_TO_JP2K_COMMAND,
+                "kdu_compress -rate 0.7,0.5,0.35,0.25,0.18,0.125,0.088,0.0625,0.04419,0.03125,0.0221,0.015625 Cmodes=BYPASS Cuse_sop=yes Cuse_eph=yes Clevels=6 Cprecincts={256,256},{256,256},{128,128} Corder=RPCL ORGtparts=R Cblk={64,64} ORGgen_plt=yes Stiles={1024,1024}");
+        properties.setProperty(DisseminationJob.PGM_TO_JP2K_OUTPUT_PATH, "/tmp/");
 
 
         clean(properties.getProperty(ConfigConstants.JOB_FOLDER));
