@@ -43,7 +43,7 @@ public class DisseminationRunnableComponentTest {
         clean(properties.getProperty(ConfigConstants.JOB_FOLDER));
 
         DisseminationRunnableComponent component = new DisseminationRunnableComponent(properties);
-        ResultCollector resultCollector = new ResultCollector("crap", "crap");
+        ResultCollector resultCollector = new ResultCollector("tool", "version");
 
         component.doWorkOnBatch(batch, resultCollector);
         assertTrue(resultCollector.isSuccess(), resultCollector.toReport());

@@ -19,8 +19,7 @@ import java.io.IOException;
 
 
 /**
- * The jpylyzer job. Eats a text file containing paths to jpegs, runs jpylyzer on each and looks up the path in doms to
- * store the result.
+ * The Job to generate presentation copies. Eats a text file containing paths to jpegs, runs kakadu expand and compress on each.
  */
 public class DisseminationJob implements Tool {
 

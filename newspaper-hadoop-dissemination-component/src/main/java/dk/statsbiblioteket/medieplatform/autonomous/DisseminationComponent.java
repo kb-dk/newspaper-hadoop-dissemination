@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-/** This is a sample component to serve as a guide to developers */
+/** This is the component to generate jp2 presentation copies*/
 public class DisseminationComponent {
 
     private static Logger log = LoggerFactory.getLogger(DisseminationComponent.class);
