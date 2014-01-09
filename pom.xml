@@ -136,6 +136,12 @@
             </plugin>
         </plugins>
     </build>
+    <scm>
+        <connection>scm:git:git@github.com:statsbiblioteket/newspaper-hadoop-dissemination.git</connection>
+        <developerConnection>scm:git:git@github.com:statsbiblioteket/newspaper-hadoop-dissemination.git
+        </developerConnection>
+      <tag>HEAD</tag>
+  </scm>
 
 
 </project>
