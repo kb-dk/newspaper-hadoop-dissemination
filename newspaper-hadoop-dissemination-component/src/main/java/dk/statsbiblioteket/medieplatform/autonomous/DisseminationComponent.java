@@ -28,7 +28,7 @@ public class DisseminationComponent {
         RunnableComponent component = new DisseminationRunnableComponent(properties);
 
         CallResult result = AutonomousComponentUtils.startAutonomousComponent(properties, component);
-        System.out.print(result);
+        log.info(result.toString());
         System.exit(result.containsFailures());
     }
 }
