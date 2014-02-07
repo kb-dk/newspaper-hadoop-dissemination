@@ -1,3 +1,6 @@
+1.1.1 
+* Updated framework dependency to 1.4.5 to enable maxResults
+
 1.1
 * Update to newspaper-batch-event-framework 1.4.2
 * Remove System.out.println() calls in non-test code
