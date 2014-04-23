@@ -3,6 +3,8 @@ package dk.statsbiblioteket.medieplatform.autonomous;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dk.statsbiblioteket.newspaper.mfpakintegration.MfPakThenSBOIAutonomousComponentUtils;
+
 import java.util.Properties;
 
 /** This is the component to generate jp2 presentation copies*/
@@ -22,12 +24,12 @@ public class DisseminationComponent {
         log.info("Starting with args {}", args);
 
         //Parse the args to a properties construct
-        Properties properties = SBOIDomsAutonomousComponentUtils.parseArgs(args);
+        Properties properties = AutonomousComponentUtils.parseArgs(args);
 
         //make a new runnable component from the properties
         RunnableComponent component = new DisseminationRunnableComponent(properties);
 
-        CallResult result = SBOIDomsAutonomousComponentUtils.startAutonomousComponent(properties, component);
+        CallResult result = MfPakThenSBOIAutonomousComponentUtils.startAutonomousComponent(properties, component);
         log.info(result.toString());
         System.exit(result.containsFailures());
     }
