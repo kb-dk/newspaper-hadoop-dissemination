@@ -24,7 +24,7 @@ public class DisseminationComponent {
         log.info("Starting with args {}", args);
 
         //Parse the args to a properties construct
-        Properties properties = AutonomousComponentUtils.parseArgs(args);
+        Properties properties = MfPakThenSBOIAutonomousComponentUtils.parseArgs(args);
 
         //make a new runnable component from the properties
         RunnableComponent component = new DisseminationRunnableComponent(properties);
