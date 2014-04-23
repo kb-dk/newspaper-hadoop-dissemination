@@ -93,7 +93,7 @@
         </dependency>
         <dependency>
             <groupId>dk.statsbiblioteket.newspaper</groupId>
-            <artifactId>sboi-doms-autonomous-component</artifactId>
+            <artifactId>autonomous-component</artifactId>
             <version>1.7-SNAPSHOT</version>
         </dependency>
         <dependency>
