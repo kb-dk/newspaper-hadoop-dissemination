@@ -1,5 +1,7 @@
-1.1.2
+1.2
 * Updated to newspaper-parent 1.1
+* Changed hadoop dependencies to Cloudera based 2.0.0-cdh4.5.0 
+* Update framework dependency to 1.7
 
 1.1.1 
 * Updated framework dependency to 1.4.5 to enable maxResults
