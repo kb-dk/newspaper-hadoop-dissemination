@@ -1,5 +1,5 @@
 1.2
-* Updated to newspaper-parent 1.1
+* Updated to newspaper-parent 1.2
 * Changed hadoop dependencies to Cloudera based 2.0.0-cdh4.5.0 
 * Update framework dependency to 1.7
 
