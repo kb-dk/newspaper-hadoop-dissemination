@@ -31,7 +31,13 @@
 
 
     <dependencyManagement>
+
         <dependencies>
+            <dependency>
+                <groupId>dk.statsbiblioteket.newspaper</groupId>
+                <artifactId>newspaper-mfpak-integration</artifactId>
+                <version>1.6</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.hadoop</groupId>
                 <artifactId>hadoop-client</artifactId>

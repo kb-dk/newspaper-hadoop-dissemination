@@ -13,23 +13,11 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <configuration>
-                    <systemPropertyVariables>
-                        <integration.test.newspaper.testdata>${integration.test.newspaper.testdata}
-                        </integration.test.newspaper.testdata>
-                    </systemPropertyVariables>
-                    <forkMode>never</forkMode>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>dk.statsbiblioteket.medieplatform.autonomous.HistogrammarComponent</mainClass>
+                            <mainClass>dk.statsbiblioteket.medieplatform.autonomous.DisseminationComponent</mainClass>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
@@ -53,25 +41,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-                <version>1.0-alpha-2</version>
-                <executions>
-                    <execution>
-                        <phase>generate-test-resources</phase>
-                        <goals>
-                            <goal>read-project-properties</goal>
-                        </goals>
-                        <configuration>
-                            <quiet>true</quiet>
-                            <files>
-                                <file>${integration.test.newspaper.properties}</file>
-                            </files>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
         </plugins>
     </build>
 
@@ -84,7 +54,7 @@
         <dependency>
             <groupId>dk.statsbiblioteket.medieplatform.hadoop</groupId>
             <artifactId>newspaper-hadoop-dissemination-job</artifactId>
-            <version>1.1.2-SNAPSHOT</version>
+            <version>1.2-SNAPSHOT</version>
             <classifier>jar-with-dependencies</classifier>
         </dependency>
         <dependency>
@@ -94,12 +64,10 @@
         <dependency>
             <groupId>dk.statsbiblioteket.newspaper</groupId>
             <artifactId>autonomous-component</artifactId>
-            <version>1.7</version>
         </dependency>
         <dependency>
             <groupId>dk.statsbiblioteket.newspaper</groupId>
             <artifactId>newspaper-mfpak-integration</artifactId>
-            <version>1.6</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
