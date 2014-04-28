@@ -15,7 +15,7 @@ import static org.testng.Assert.assertTrue;
 public class DisseminationRunnableComponentTest {
 
 
-    @Test(groups = "integrationTest", enabled = false)
+    @Test(groups = "integrationTest", enabled = true)
     public void testDoWorkOnBatch() throws Exception {
         String pathToProperties = System.getProperty("integration.test.newspaper.properties");
         Properties properties = new Properties();
