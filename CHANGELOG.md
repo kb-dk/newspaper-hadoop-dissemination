@@ -1,4 +1,7 @@
 1.2
+* Disabled speculative execution
+* Use MFPAK triggers
+* Replaced sample hadoop configs with those for the cloudera cluster
 * Updated to newspaper-parent 1.2
 * Changed hadoop dependencies to Cloudera based 2.0.0-cdh4.5.0 
 * Update framework dependency to 1.7
