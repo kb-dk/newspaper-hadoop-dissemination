@@ -1,3 +1,6 @@
+1.3
+* Update to batch event framework 1.9 and mfpak integration 1.9 to fix the 'does not find any work bug'
+
 1.2
 * Disabled speculative execution
 * Use MFPAK triggers
