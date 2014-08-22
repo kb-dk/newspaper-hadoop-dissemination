@@ -28,6 +28,7 @@ public class SymlinkCreatorReducer extends AbstractDomsReducer {
      */
     @Override
     protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+        log.debug("Doing reduce ...");
         try {
             String pid = getDomsPid(key);
             String outputPathString = values.iterator().next().toString();
