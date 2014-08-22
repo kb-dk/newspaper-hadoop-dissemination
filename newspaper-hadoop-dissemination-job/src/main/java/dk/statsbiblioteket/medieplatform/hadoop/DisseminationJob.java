@@ -55,11 +55,13 @@ public class DisseminationJob implements Tool {
         configuration.setIfUnset(ConfigConstants.DOMS_PASSWORD, "fedoraAdminPass");
 
 
+
         Job job = Job.getInstance(configuration);
         job.setJobName("Newspaper " + getClass().getSimpleName() + " " + configuration.get(ConfigConstants.BATCH_ID));
 
         job.setJarByClass(DisseminationJob.class);
         job.setMapperClass(ChainMapper.class);
+        job.setReducerClass(SymlinkCreatorReducer.class);
 
         ChainMapper.addMapper(
                 job,
