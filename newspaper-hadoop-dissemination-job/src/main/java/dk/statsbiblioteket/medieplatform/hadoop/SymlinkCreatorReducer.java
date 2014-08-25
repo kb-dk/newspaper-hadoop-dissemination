@@ -40,12 +40,12 @@ public class SymlinkCreatorReducer extends AbstractDomsReducer {
             for (int i = 0; i < symlinkDepth; i++) {
                 symlinkDirPathElements.add(filename.charAt(i) + "");
             }
-            Path symlinkDirPath = Paths.get(symlinkRoot, (String[]) symlinkDirPathElements.toArray(new String[]{}));
+            Path symlinkDirPath = Paths.get(symlinkRoot, symlinkDirPathElements.toArray(new String[]{}));
             log.debug("Creating directory {} (if necessary).", symlinkDirPath.toString());
             Files.createDirectories(symlinkDirPath);
             List<String> symlinkFilePathElements = symlinkDirPathElements;
             symlinkFilePathElements.add(filename);
-            Path symlinkFilePath = Paths.get(symlinkRoot, (String[]) symlinkFilePathElements.toArray(new String[]{}));
+            Path symlinkFilePath = Paths.get(symlinkRoot, symlinkFilePathElements.toArray(new String[]{}));
             log.debug("Creating symlink {} for {}.", symlinkFilePath.toString(), outputPathString);
             Files.createSymbolicLink(symlinkFilePath, Paths.get(outputPathString));
             context.write(key, new Text(symlinkFilePath.toFile().getAbsolutePath()));
