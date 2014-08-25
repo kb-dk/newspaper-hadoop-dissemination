@@ -26,7 +26,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 /**
- * Created by csr on 25/08/14.
+ *
  */
 public class SymlinkCreatorReducerTest {
 
@@ -52,9 +52,9 @@ public class SymlinkCreatorReducerTest {
     private static void setFiles() {
         String symlinkRoot = properties.getProperty("symlink.rootdir.path");
         TESTROOT = symlinkRoot + "/testdir";
-        ORIGINALS_DIR = symlinkRoot + "/originals";
-        FINALS_DIR = symlinkRoot + "/finals";
-        LINKS_DIR = symlinkRoot + "/links";
+        ORIGINALS_DIR = TESTROOT  + "/originals";
+        FINALS_DIR = TESTROOT + "/finals";
+        LINKS_DIR = TESTROOT + "/links";
         testrootDir = new File(TESTROOT);
         originalsDir = new File(ORIGINALS_DIR);
         finalsDir = new File(FINALS_DIR);
@@ -67,7 +67,7 @@ public class SymlinkCreatorReducerTest {
         properties = new Properties();
         genericPropertyFile = new File(pathToProperties);
         properties.load(new FileInputStream(genericPropertyFile));
-        properties.setProperty(SymlinkCreatorReducer.SYMLINK_ROOTDIR_PATH, "/net/zone1.isilon.sblokalnet/ifs/archive/bitmag-devel01-data/cache/avisbits/perm/avis/");
+        properties.setProperty(SymlinkCreatorReducer.SYMLINK_ROOTDIR_PATH, "/net/zone1.isilon.sblokalnet/ifs/archive/achernar/");
         properties.setProperty(SymlinkCreatorReducer.SYMLINK_DEPTH, "4");
         setFiles();
         tearDown();
