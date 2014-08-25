@@ -78,7 +78,7 @@ public class SymlinkCreatorReducerTest {
     }
 
     @Test
-    public void testReduceJava7() throws Exception {
+    public void testReduce() throws Exception {
         File originalFile = new File(originalsDir, "foobar.jp2");
         originalFile.createNewFile();
         File finalFile = new File(finalsDir, "foobar_final.jp2");
@@ -98,38 +98,10 @@ public class SymlinkCreatorReducerTest {
         when(mockContext.getConfiguration()).thenReturn(mockConfiguration);
         when(mockValuesIterator.next()).thenReturn(new Text(finalFile.getAbsolutePath()));
         when(mockValues.iterator()).thenReturn(mockValuesIterator);
-        reducer.reduceJava7(key, mockValues, mockContext);
+        reducer.reduce(key, mockValues, mockContext);
         File linkFile = new File(linksDir, "a/e/f/g/aefg0103-2828282-919191.jp2");
         assertTrue(linkFile.exists());
         assertEquals(linkFile.getCanonicalPath(), finalFile.getCanonicalPath());
     }
-
-    @Test
-    public void testReduceJava6() throws Exception {
-        File originalFile = new File(originalsDir, "foobar.jp2");
-        originalFile.createNewFile();
-        File finalFile = new File(finalsDir, "foobar_final.jp2");
-        finalFile.createNewFile();
-        final String domsPid = "uuid:aefg0103-2828282-919191";
-        SymlinkCreatorReducer reducer = new SymlinkCreatorReducer() {
-            @Override
-            protected String getDomsPid(Text key) throws BackendInvalidCredsException, BackendMethodFailedException {
-                return domsPid;
-            }
-        };
-        Text key = new Text(originalFile.getAbsolutePath());
-        Reducer.Context mockContext = mock(Reducer.Context.class);
-        Configuration mockConfiguration = mock(Configuration.class);
-        when(mockConfiguration.getInt(SymlinkCreatorReducer.SYMLINK_DEPTH, 0)).thenReturn(4);
-        when(mockConfiguration.get(SymlinkCreatorReducer.SYMLINK_ROOTDIR_PATH)).thenReturn(linksDir.getAbsolutePath());
-        when(mockContext.getConfiguration()).thenReturn(mockConfiguration);
-        when(mockValuesIterator.next()).thenReturn(new Text(finalFile.getAbsolutePath()));
-        when(mockValues.iterator()).thenReturn(mockValuesIterator);
-        reducer.reduceJava6(key, mockValues, mockContext);
-        File linkFile = new File(linksDir, "a/e/f/g/aefg0103-2828282-919191.jp2");
-        assertTrue(linkFile.exists());
-        assertEquals(linkFile.getCanonicalPath(), finalFile.getCanonicalPath());
-    }
-
 
 }
