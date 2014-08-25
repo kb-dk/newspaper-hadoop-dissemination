@@ -49,6 +49,24 @@ public class SymlinkCreatorReducerTest {
     @Mock
     Iterator<Text> mockValuesIterator;
 
+
+
+    @BeforeMethod(groups = "integrationTest")
+    public void setUp() throws IOException {
+        String pathToProperties = System.getProperty("integration.test.newspaper.properties");
+        properties = new Properties();
+        genericPropertyFile = new File(pathToProperties);
+        properties.load(new FileInputStream(genericPropertyFile));
+        properties.setProperty(SymlinkCreatorReducer.SYMLINK_ROOTDIR_PATH, "/tmp");
+        properties.setProperty(SymlinkCreatorReducer.SYMLINK_DEPTH, "4");
+        setFiles();
+        tearDown();
+        assertTrue(originalsDir.mkdirs(), "Could not create " + originalsDir);
+        assertTrue(finalsDir.mkdirs(), "Could not create " + finalsDir);
+        assertTrue(linksDir.mkdirs(), "Could not create " + linksDir);
+        MockitoAnnotations.initMocks(this);
+    }
+
     private static void setFiles() {
         String symlinkRoot = properties.getProperty("symlink.rootdir.path");
         TESTROOT = symlinkRoot + "/testdir";
@@ -59,22 +77,6 @@ public class SymlinkCreatorReducerTest {
         originalsDir = new File(ORIGINALS_DIR);
         finalsDir = new File(FINALS_DIR);
         linksDir = new File(LINKS_DIR);
-    }
-
-    @BeforeMethod(groups = "integrationTest")
-    public void setUp() throws IOException {
-        String pathToProperties = System.getProperty("integration.test.newspaper.properties");
-        properties = new Properties();
-        genericPropertyFile = new File(pathToProperties);
-        properties.load(new FileInputStream(genericPropertyFile));
-        properties.setProperty(SymlinkCreatorReducer.SYMLINK_ROOTDIR_PATH, "/net/zone1.isilon.sblokalnet/ifs/archive/achernar/");
-        properties.setProperty(SymlinkCreatorReducer.SYMLINK_DEPTH, "4");
-        setFiles();
-        tearDown();
-        assertTrue(originalsDir.mkdirs(), "Could not create " + originalsDir);
-        assertTrue(finalsDir.mkdirs(), "Could not create " + finalsDir);
-        assertTrue(linksDir.mkdirs(), "Could not create " + linksDir);
-        MockitoAnnotations.initMocks(this);
     }
 
     @AfterMethod(groups = "integrationTest")
