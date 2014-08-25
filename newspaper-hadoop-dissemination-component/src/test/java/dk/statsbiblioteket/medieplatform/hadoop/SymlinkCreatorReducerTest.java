@@ -51,14 +51,8 @@ public class SymlinkCreatorReducerTest {
 
 
 
-    @BeforeMethod(groups = "integrationTest")
+    @BeforeMethod
     public void setUp() throws IOException {
-        String pathToProperties = System.getProperty("integration.test.newspaper.properties");
-        properties = new Properties();
-        genericPropertyFile = new File(pathToProperties);
-        properties.load(new FileInputStream(genericPropertyFile));
-        properties.setProperty(SymlinkCreatorReducer.SYMLINK_ROOTDIR_PATH, "/tmp");
-        properties.setProperty(SymlinkCreatorReducer.SYMLINK_DEPTH, "4");
         setFiles();
         tearDown();
         assertTrue(originalsDir.mkdirs(), "Could not create " + originalsDir);
@@ -68,8 +62,7 @@ public class SymlinkCreatorReducerTest {
     }
 
     private static void setFiles() {
-        String symlinkRoot = properties.getProperty("symlink.rootdir.path");
-        TESTROOT = symlinkRoot + "/testdir";
+        TESTROOT = "/tmp/testdir";
         ORIGINALS_DIR = TESTROOT  + "/originals";
         FINALS_DIR = TESTROOT + "/finals";
         LINKS_DIR = TESTROOT + "/links";
@@ -79,12 +72,12 @@ public class SymlinkCreatorReducerTest {
         linksDir = new File(LINKS_DIR);
     }
 
-    @AfterMethod(groups = "integrationTest")
+    @AfterMethod
     public void tearDown() throws IOException {
         FileUtils.deleteDirectory(testrootDir);
     }
 
-    @Test(groups = "integrationTest")
+    @Test
     public void testReduceJava7() throws Exception {
         File originalFile = new File(originalsDir, "foobar.jp2");
         originalFile.createNewFile();
@@ -111,7 +104,7 @@ public class SymlinkCreatorReducerTest {
         assertEquals(linkFile.getCanonicalPath(), finalFile.getCanonicalPath());
     }
 
-    @Test(groups = "integrationTest")
+    @Test
     public void testReduceJava6() throws Exception {
         File originalFile = new File(originalsDir, "foobar.jp2");
         originalFile.createNewFile();
