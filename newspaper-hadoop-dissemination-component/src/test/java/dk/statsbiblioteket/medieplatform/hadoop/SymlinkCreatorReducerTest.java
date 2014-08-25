@@ -46,9 +46,9 @@ public class SymlinkCreatorReducerTest {
     @BeforeMethod
     public void setUp() throws IOException {
         tearDown();
-        originalsDir.mkdirs();
-        finalsDir.mkdirs();
-        linksDir.mkdirs();
+        assertTrue(originalsDir.mkdirs(), "Could not create " + originalsDir);
+        assertTrue(finalsDir.mkdirs(), "Could not create " + finalsDir);
+        assertTrue(linksDir.mkdirs(), "Could not create " + linksDir);
         MockitoAnnotations.initMocks(this);
     }
 
