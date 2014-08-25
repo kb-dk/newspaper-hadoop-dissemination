@@ -61,7 +61,7 @@ public class SymlinkCreatorReducerTest {
         linksDir = new File(LINKS_DIR);
     }
 
-    @BeforeMethod
+    @BeforeMethod(groups = "integrationTest")
     public void setUp() throws IOException {
         String pathToProperties = System.getProperty("integration.test.newspaper.properties");
         properties = new Properties();
@@ -77,7 +77,7 @@ public class SymlinkCreatorReducerTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @AfterMethod
+    @AfterMethod(groups = "integrationTest")
     public void tearDown() throws IOException {
         FileUtils.deleteDirectory(testrootDir);
     }
