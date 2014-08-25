@@ -67,6 +67,8 @@ public class SymlinkCreatorReducerTest {
         properties = new Properties();
         genericPropertyFile = new File(pathToProperties);
         properties.load(new FileInputStream(genericPropertyFile));
+        properties.setProperty(SymlinkCreatorReducer.SYMLINK_ROOTDIR_PATH, "/net/zone1.isilon.sblokalnet/ifs/archive/bitmag-devel01-data/cache/avisbits/perm/avis/");
+        properties.setProperty(SymlinkCreatorReducer.SYMLINK_DEPTH, "4");
         setFiles();
         tearDown();
         assertTrue(originalsDir.mkdirs(), "Could not create " + originalsDir);
