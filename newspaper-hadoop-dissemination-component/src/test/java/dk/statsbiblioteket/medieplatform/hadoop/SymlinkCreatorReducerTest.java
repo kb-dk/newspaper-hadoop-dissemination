@@ -1,5 +1,6 @@
 package dk.statsbiblioteket.medieplatform.hadoop;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 import dk.statsbiblioteket.doms.central.connectors.BackendInvalidCredsException;
 import dk.statsbiblioteket.doms.central.connectors.BackendMethodFailedException;
 import dk.statsbiblioteket.doms.central.connectors.EnhancedFedora;
@@ -14,8 +15,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Properties;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -27,15 +30,18 @@ import static org.testng.Assert.assertTrue;
  */
 public class SymlinkCreatorReducerTest {
 
-    public static final String TESTROOT = "testdir";
-    public static final String ORIGINALS_DIR = "testdir/originals";
-    public static final String FINALS_DIR = "testdir/finals";
-    public static final String LINKS_DIR = "testdir/links";
+    public static String TESTROOT;
+    public static String ORIGINALS_DIR;
+    public static String FINALS_DIR;
+    public static String LINKS_DIR;
 
-    public static File testrootDir = new File(TESTROOT);
-    public static File originalsDir = new File(ORIGINALS_DIR);
-    public static File finalsDir = new File(FINALS_DIR);
-    public static File linksDir = new File(LINKS_DIR);
+    public static File testrootDir;
+    public static File originalsDir;
+    public static File finalsDir;
+    public static File linksDir;
+
+    public static Properties properties;
+    public static File genericPropertyFile;
 
     @Mock
     Iterable<Text> mockValues;
@@ -43,8 +49,25 @@ public class SymlinkCreatorReducerTest {
     @Mock
     Iterator<Text> mockValuesIterator;
 
+    private static void setFiles() {
+        String symlinkRoot = properties.getProperty("symlink.rootdir.path");
+        TESTROOT = symlinkRoot + "/testdir";
+        ORIGINALS_DIR = symlinkRoot + "/originals";
+        FINALS_DIR = symlinkRoot + "/finals";
+        LINKS_DIR = symlinkRoot + "/links";
+        testrootDir = new File(TESTROOT);
+        originalsDir = new File(ORIGINALS_DIR);
+        finalsDir = new File(FINALS_DIR);
+        linksDir = new File(LINKS_DIR);
+    }
+
     @BeforeMethod
     public void setUp() throws IOException {
+        String pathToProperties = System.getProperty("integration.test.newspaper.properties");
+        properties = new Properties();
+        genericPropertyFile = new File(pathToProperties);
+        properties.load(new FileInputStream(genericPropertyFile));
+        setFiles();
         tearDown();
         assertTrue(originalsDir.mkdirs(), "Could not create " + originalsDir);
         assertTrue(finalsDir.mkdirs(), "Could not create " + finalsDir);
@@ -57,7 +80,7 @@ public class SymlinkCreatorReducerTest {
         FileUtils.deleteDirectory(testrootDir);
     }
 
-    @Test
+    @Test(groups = "integrationTest")
     public void testReduceJava7() throws Exception {
         File originalFile = new File(originalsDir, "foobar.jp2");
         originalFile.createNewFile();
@@ -84,7 +107,7 @@ public class SymlinkCreatorReducerTest {
         assertEquals(linkFile.getCanonicalPath(), finalFile.getCanonicalPath());
     }
 
-    @Test
+    @Test(groups = "integrationTest")
     public void testReduceJava6() throws Exception {
         File originalFile = new File(originalsDir, "foobar.jp2");
         originalFile.createNewFile();
