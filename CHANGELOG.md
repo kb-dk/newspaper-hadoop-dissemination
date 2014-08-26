@@ -1,3 +1,14 @@
+1.4
+* Added a reduce step which creates symlinks to all the dissemination files
+
+This change introduces two new config parameters:
+
+    # Root directory where symlinks are created
+    symlink.rootdir.path=/avis-show/symlinks
+    # Depth of directory-nesting for symlinks
+    symlink.depth=4
+
+
 1.3
 * Update to batch event framework 1.9 and mfpak integration 1.9 to fix the 'does not find any work bug'
 

@@ -49,8 +49,6 @@ public class SymlinkCreatorReducerTest {
     @Mock
     Iterator<Text> mockValuesIterator;
 
-
-
     @BeforeMethod
     public void setUp() throws IOException {
         setFiles();
@@ -61,12 +59,15 @@ public class SymlinkCreatorReducerTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    private static void setFiles() {
-        TESTROOT = "/tmp/testdir";
+    private static void setFiles() throws IOException {
+        File tempFile = File.createTempFile("foo","bar");
+        testrootDir = new File(tempFile.getAbsolutePath() + ".d");
+        testrootDir.mkdirs();
+        tempFile.delete();
+        TESTROOT = testrootDir.getAbsolutePath();
         ORIGINALS_DIR = TESTROOT  + "/originals";
         FINALS_DIR = TESTROOT + "/finals";
         LINKS_DIR = TESTROOT + "/links";
-        testrootDir = new File(TESTROOT);
         originalsDir = new File(ORIGINALS_DIR);
         finalsDir = new File(FINALS_DIR);
         linksDir = new File(LINKS_DIR);

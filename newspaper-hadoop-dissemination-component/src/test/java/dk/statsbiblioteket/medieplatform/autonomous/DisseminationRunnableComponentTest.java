@@ -31,7 +31,7 @@ public class DisseminationRunnableComponentTest {
                 "/net/zone1.isilon.sblokalnet/ifs/archive/bitmag-devel01-data/cache/avisbits/perm/avis/");
         properties.setProperty(ConfigConstants.HADOOP_USER, "newspapr");
         properties.setProperty(ConfigConstants.FILES_PER_MAP_TASK, "5");
-        properties.setProperty(SymlinkCreatorReducer.SYMLINK_ROOTDIR_PATH, "/net/zone1.isilon.sblokalnet/ifs/archive/bitmag-devel01-data/cache/avisbits/perm/avis/");
+        properties.setProperty(SymlinkCreatorReducer.SYMLINK_ROOTDIR_PATH, "/avis-show/symlinks");
         properties.setProperty(SymlinkCreatorReducer.SYMLINK_DEPTH, "4");
 
         properties.setProperty(DisseminationJob.JP2K_TO_PGM_COMMAND, "kdu_expand -num_threads 1 -fprec 8M");

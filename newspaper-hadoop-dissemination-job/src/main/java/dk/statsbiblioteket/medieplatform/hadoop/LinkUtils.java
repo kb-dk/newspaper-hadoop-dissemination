@@ -1,4 +1,5 @@
 package dk.statsbiblioteket.medieplatform.hadoop;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Utility class for reusable code for creating symlinks.
  */
 public class LinkUtils {
 
@@ -24,7 +25,7 @@ public class LinkUtils {
      * then calling this method with these as the first two parameters will create a symlink of the form
      * {symlinkRoot}/a/e/f/g/aefg998282....jp2 -> foobar.jp2
      * the final two parameters determine the rootdir for the symlinks and the depth
-     * of the directory nesting.
+     * of the directory nesting. The file extension is copied to the link.
      *
      * @param pid
      * @param outputPathString
@@ -37,12 +38,13 @@ public class LinkUtils {
     public static String createSymlinkJava6(String pid, String outputPathString, String symlinkRoot, int symlinkDepth) throws IOException, InterruptedException {
         File symlinkRootDir = new File(symlinkRoot);
         log.debug("Creating a symlink for {} to {}.", pid, outputPathString);
-        String filename = pid.replace("uuid:","") + ".jp2";
+        String extension = FilenameUtils.getExtension(outputPathString);
+        String filename = pid.replace("uuid:","") + "." + extension;
         String symlinkPath = "";
         for (int i = 0; i < symlinkDepth; i++) {
             symlinkPath += filename.charAt(i) + "/";
         }
-        File symlinkDir = null;
+        File symlinkDir;
         if (symlinkDepth > 0) {
            symlinkDir = new File(symlinkRootDir, symlinkPath);
         } else {
@@ -59,9 +61,27 @@ public class LinkUtils {
         return symlinkFileAbsolutePath;
     }
 
+    /**
+        * Creates a symlink for a given file.
+        * If we have a doms pid: uuid:aefg998282 ...
+        * corresponding to a file: foobar.jp2
+        * then calling this method with these as the first two parameters will create a symlink of the form
+        * {symlinkRoot}/a/e/f/g/aefg998282....jp2 -> foobar.jp2
+        * the final two parameters determine the rootdir for the symlinks and the depth
+        * of the directory nesting.
+        *
+        * @param pid
+        * @param outputPathString
+        * @param symlinkRoot
+        * @param symlinkDepth
+        * @return
+        * @throws IOException
+        * @throws InterruptedException
+        */
     public static String createSymlinkJava7(String pid, String outputPathString, String symlinkRoot, int symlinkDepth) throws IOException {
         log.debug("Creating a symlink for {} to {}.", pid, outputPathString);
-        String filename = pid.replace("uuid:","") + ".jp2";
+        String extension = FilenameUtils.getExtension(outputPathString);
+        String filename = pid.replace("uuid:","") + "." + extension;
         List<String> symlinkDirPathElements = new ArrayList<String>();
         for (int i = 0; i < symlinkDepth; i++) {
             symlinkDirPathElements.add(filename.charAt(i) + "");
@@ -76,4 +96,6 @@ public class LinkUtils {
         Files.createSymbolicLink(symlinkFilePath, Paths.get(outputPathString));
         return symlinkFilePath.toString();
     }
+
+
 }
