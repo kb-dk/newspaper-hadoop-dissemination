@@ -32,32 +32,31 @@ public class LinkUtils {
      * @param symlinkRoot
      * @param symlinkDepth
      * @return
-     * @throws IOException
+     * @throws IOException If the link cannot be created.
      * @throws InterruptedException
      */
     public static String createSymlinkJava6(String pid, String outputPathString, String symlinkRoot, int symlinkDepth) throws IOException, InterruptedException {
-        File symlinkRootDir = new File(symlinkRoot);
         log.debug("Creating a symlink for {} to {}.", pid, outputPathString);
         String extension = FilenameUtils.getExtension(outputPathString);
         String filename = pid.replace("uuid:","") + "." + extension;
-        String symlinkPath = "";
+        File symlinkDir = new File(symlinkRoot);;
         for (int i = 0; i < symlinkDepth; i++) {
-            symlinkPath += filename.charAt(i) + "/";
-        }
-        File symlinkDir;
-        if (symlinkDepth > 0) {
-           symlinkDir = new File(symlinkRootDir, symlinkPath);
-        } else {
-            symlinkDir = symlinkRootDir;
+            symlinkDir = new File(symlinkDir, filename.charAt(i) + "");
         }
         log.debug("Creating directory {} (if necessary).", symlinkDir.getAbsolutePath());
         symlinkDir.mkdirs();
+        if (!symlinkDir.exists()) {
+            throw new IOException("Failed to create " + symlinkDir.getAbsolutePath());
+        }
         File symlinkFile = new File(symlinkDir, filename);
         Runtime rt = Runtime.getRuntime();
         String symlinkFileAbsolutePath = symlinkFile.getAbsolutePath();
         log.debug("Creating symbolic link from {} to {}.", symlinkFileAbsolutePath, outputPathString);
         Process proc = rt.exec(new String[]{"ln", "-s", outputPathString, symlinkFileAbsolutePath});
-        proc.waitFor();
+        int exitValue = proc.waitFor();
+        if (!(exitValue == 0)) {
+            throw new IOException("Failed to create link for " + outputPathString);
+        }
         return symlinkFileAbsolutePath;
     }
 
