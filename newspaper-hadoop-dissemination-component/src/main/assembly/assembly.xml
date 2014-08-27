@@ -42,7 +42,7 @@
         </fileSet>
         <fileSet>
             <filtered>
-                true
+                false
             </filtered>
             <directory>
                 src/main/config

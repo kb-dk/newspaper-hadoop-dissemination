@@ -48,7 +48,10 @@
             <groupId>dk.statsbiblioteket.newspaper</groupId>
             <artifactId>hadoop-doms-integration</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>dk.statsbiblioteket.newspaper</groupId>
+            <artifactId>autonomous-component</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>dk.statsbiblioteket.sbutil</groupId>
@@ -58,6 +61,7 @@
             <groupId>dk.statsbiblioteket.newspaper</groupId>
             <artifactId>hadoop-file-converters</artifactId>
         </dependency>
+
 
         <dependency>
             <groupId>org.apache.mrunit</groupId>
