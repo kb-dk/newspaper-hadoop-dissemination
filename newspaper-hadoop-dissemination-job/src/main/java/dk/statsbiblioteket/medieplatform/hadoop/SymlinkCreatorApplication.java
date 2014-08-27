@@ -31,7 +31,7 @@ public class SymlinkCreatorApplication {
     private static Logger log = LoggerFactory.getLogger(SymlinkCreatorApplication.class);
 
     private static void usage() {
-        System.out.println("Usage:\njava dk.statsbiblioteket.medieplatform.hadoop.SymlinkCreatorApplication roundtripid -c configfile");
+        System.err.println("Usage:\njava " + SymlinkCreatorApplication.class.getName() + " roundtripid -c configfile");
     }
 
     /**
@@ -53,6 +53,8 @@ public class SymlinkCreatorApplication {
         File roundtripRoot = new File(disseminationRoot, args[0]);
         if (!(roundtripRoot.exists() && roundtripRoot.isDirectory())) {
             log.error("Directory {} does not exist. Exiting.", roundtripRoot.getAbsolutePath());
+            System.err.println("Directory " + roundtripRoot.getAbsolutePath() + " does not exist. Exiting.");
+            usage();
             System.exit(2);
         }
         log.debug("Reading roundtrip dissemination files from {}.", roundtripRoot.getAbsolutePath());
@@ -64,6 +66,9 @@ public class SymlinkCreatorApplication {
             fedora = getFedora(properties);
         } catch (Exception e) {
             log.error("Could not initialise fedora.", e);
+            System.err.println("Could not initialise fedora. Exiting.");
+            e.printStackTrace(System.err);
+            usage();
             System.exit(3);
         }
         IOFileFilter filter = getJP2FileFilter();
@@ -71,7 +76,11 @@ public class SymlinkCreatorApplication {
         try {
             application.createLinks(roundtripRoot, symlinkRoot, symlinkDepth, fedora, filter);
         } catch (Exception e) {
-            e.printStackTrace();
+            final String msg = "Error creating symlinks for " + args[0];
+            log.error(msg, e);
+            System.err.println();
+            e.printStackTrace(System.err);
+            usage();
             System.exit(4);
         }
     }
@@ -120,7 +129,7 @@ public class SymlinkCreatorApplication {
         Collection<File> files = FileUtils.listFiles(roundtripRoot, filter, TrueFileFilter.INSTANCE);
         log.debug("Found {} dissemination files.", files.size());
         for (File file: files) {
-            String pathInBatch = file.getCanonicalPath().replace(roundtripRoot.getParentFile().getCanonicalPath() + "/", "");
+            String pathInBatch = file.getCanonicalPath().replace(roundtripRoot.getParentFile().getCanonicalPath() + File.separator, "");
             pathInBatch = "path:" + pathInBatch.replaceAll("_", "/");   //Is this necessary?
             List<String> hits = enhancedFedora.findObjectFromDCIdentifier(pathInBatch);
             if (hits.isEmpty()) {
