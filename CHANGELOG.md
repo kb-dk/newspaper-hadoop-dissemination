@@ -8,6 +8,9 @@ This change introduces two new config parameters:
     # Depth of directory-nesting for symlinks
     symlink.depth=4
 
+* Added a command line utility for creating symlinks per batch roundtrip for batches which have already been processed.
+See the script createSymlinks.sh .
+
 
 1.3
 * Update to batch event framework 1.9 and mfpak integration 1.9 to fix the 'does not find any work bug'
