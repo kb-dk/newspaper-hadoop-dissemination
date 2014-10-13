@@ -57,6 +57,9 @@ public class SymlinkCreatorApplication {
             usage();
             System.exit(2);
         }
+
+        // TODO Here, insert fix of "double-batch-numbers in path"
+
         log.debug("Reading roundtrip dissemination files from {}.", roundtripRoot.getAbsolutePath());
         File symlinkRoot = new File(properties.getProperty(SymlinkCreatorReducer.SYMLINK_ROOTDIR_PATH));
         int symlinkDepth = Integer.parseInt(properties.getProperty(SymlinkCreatorReducer.SYMLINK_DEPTH));
