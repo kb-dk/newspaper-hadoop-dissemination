@@ -17,7 +17,7 @@ public class DisseminationRunnableComponentTest {
 
 
     @Test(groups = "integrationTest", enabled = true)
-    public void testDoWorkOnBatch() throws Exception {
+    public void testdoWorkOnItem() throws Exception {
         String pathToProperties = System.getProperty("integration.test.newspaper.properties");
         Properties properties = new Properties();
         properties.load(new FileInputStream(pathToProperties));
@@ -47,7 +47,7 @@ public class DisseminationRunnableComponentTest {
         DisseminationRunnableComponent component = new DisseminationRunnableComponent(properties);
         ResultCollector resultCollector = new ResultCollector("tool", "version");
 
-        component.doWorkOnBatch(batch, resultCollector);
+        component.doWorkOnItem(batch, resultCollector);
         assertTrue(resultCollector.isSuccess(), resultCollector.toReport());
     }
 

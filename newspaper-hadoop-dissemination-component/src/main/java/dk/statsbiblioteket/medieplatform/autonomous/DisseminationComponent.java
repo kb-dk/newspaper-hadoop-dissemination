@@ -18,7 +18,7 @@ public class DisseminationComponent {
      * @param args the arguments.
      *
      * @throws Exception
-     * @see SBOIDomsAutonomousComponentUtils#parseArgs(String[])
+     * @see NewspaperBatchAutonomousComponentUtils#parseArgs(String[])
      */
     public static void main(String[] args) throws Exception {
         log.info("Starting with args {}", args);
@@ -27,7 +27,7 @@ public class DisseminationComponent {
         Properties properties = MfPakThenSBOIAutonomousComponentUtils.parseArgs(args);
 
         //make a new runnable component from the properties
-        RunnableComponent component = new DisseminationRunnableComponent(properties);
+        RunnableComponent<Batch> component = new DisseminationRunnableComponent(properties);
 
         CallResult result = MfPakThenSBOIAutonomousComponentUtils.startAutonomousComponent(properties, component);
         log.info(result.toString());

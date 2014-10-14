@@ -54,7 +54,7 @@
         <dependency>
             <groupId>dk.statsbiblioteket.medieplatform.hadoop</groupId>
             <artifactId>newspaper-hadoop-dissemination-job</artifactId>
-            <version>1.5-SNAPSHOT</version>
+            <version>${project.version}</version>
             <classifier>jar-with-dependencies</classifier>
         </dependency>
         <dependency>
@@ -63,7 +63,7 @@
         </dependency>
         <dependency>
             <groupId>dk.statsbiblioteket.newspaper</groupId>
-            <artifactId>autonomous-component</artifactId>
+            <artifactId>newspaper-batch-event-framework-common</artifactId>
         </dependency>
         <dependency>
             <groupId>dk.statsbiblioteket.newspaper</groupId>

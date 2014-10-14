@@ -49,11 +49,6 @@
             <artifactId>hadoop-doms-integration</artifactId>
         </dependency>
         <dependency>
-            <groupId>dk.statsbiblioteket.newspaper</groupId>
-            <artifactId>autonomous-component</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>dk.statsbiblioteket.sbutil</groupId>
             <artifactId>sbutil-common</artifactId>
         </dependency>

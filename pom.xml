@@ -20,9 +20,6 @@
     </repositories>
     <packaging>pom</packaging>
 
-    <properties>
-        <autonoumous.component.framework.version>1.10</autonoumous.component.framework.version>
-    </properties>
 
     <modules>
         <module>newspaper-hadoop-dissemination-job</module>
@@ -36,7 +33,7 @@
             <dependency>
                 <groupId>dk.statsbiblioteket.newspaper</groupId>
                 <artifactId>newspaper-mfpak-integration</artifactId>
-                <version>1.10</version>
+                <version>1.11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.hadoop</groupId>
@@ -83,26 +80,26 @@
 
             <dependency>
                 <groupId>dk.statsbiblioteket.newspaper</groupId>
-                <artifactId>autonomous-component</artifactId>
-                <version>${autonoumous.component.framework.version}</version>
+                <artifactId>newspaper-batch-event-framework-common</artifactId>
+                <version>1.12-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>dk.statsbiblioteket.newspaper</groupId>
                 <artifactId>hadoop-component</artifactId>
-                <version>${autonoumous.component.framework.version}</version>
+                <version>1.12-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>dk.statsbiblioteket.newspaper</groupId>
                 <artifactId>hadoop-doms-integration</artifactId>
-                <version>${autonoumous.component.framework.version}</version>
+                <version>1.12-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>dk.statsbiblioteket.newspaper</groupId>
                 <artifactId>hadoop-file-converters</artifactId>
-                <version>${autonoumous.component.framework.version}</version>
+                <version>1.12-SNAPSHOT</version>
             </dependency>
 
             <dependency>

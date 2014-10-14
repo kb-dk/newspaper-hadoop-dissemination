@@ -1,4 +1,4 @@
-package dk.statsbiblioteket.medieplatform.hadoop;
+package dk.statsbiblioteket.medieplatform.autonomous;
 
 import dk.statsbiblioteket.doms.central.connectors.BackendInvalidCredsException;
 import dk.statsbiblioteket.doms.central.connectors.BackendMethodFailedException;
@@ -6,8 +6,9 @@ import dk.statsbiblioteket.doms.central.connectors.EnhancedFedora;
 import dk.statsbiblioteket.doms.central.connectors.EnhancedFedoraImpl;
 import dk.statsbiblioteket.doms.central.connectors.fedora.pidGenerator.PIDGeneratorException;
 import dk.statsbiblioteket.doms.webservices.authentication.Credentials;
-import dk.statsbiblioteket.medieplatform.autonomous.AutonomousComponentUtils;
-import dk.statsbiblioteket.medieplatform.autonomous.ConfigConstants;
+import dk.statsbiblioteket.medieplatform.hadoop.DisseminationJob;
+import dk.statsbiblioteket.medieplatform.hadoop.LinkUtils;
+import dk.statsbiblioteket.medieplatform.hadoop.SymlinkCreatorReducer;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
@@ -92,7 +93,7 @@ public class SymlinkCreatorApplication {
      * Filter which just matches files ending in ".jp2".
      * @return The filter.
      */
-    protected static IOFileFilter getJP2FileFilter() {
+    public static IOFileFilter getJP2FileFilter() {
         return new IOFileFilter() {
                 @Override
                 public boolean accept(File file) {
