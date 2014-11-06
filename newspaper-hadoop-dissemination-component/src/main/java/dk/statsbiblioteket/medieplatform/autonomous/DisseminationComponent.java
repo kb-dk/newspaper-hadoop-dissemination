@@ -29,7 +29,7 @@ public class DisseminationComponent {
         //make a new runnable component from the properties
         RunnableComponent<Batch> component = new DisseminationRunnableComponent(properties);
 
-        CallResult result = MfPakThenSBOIAutonomousComponentUtils.startAutonomousComponent(properties, component);
+        CallResult result = NewspaperBatchAutonomousComponentUtils.startAutonomousComponent(properties, component);
         log.info(result.toString());
         System.exit(result.containsFailures());
     }
