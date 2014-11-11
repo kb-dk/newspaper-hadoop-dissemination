@@ -1,3 +1,7 @@
+1.5
+* Use newest version of item event framework. No functional changes for this module.
+* Do not depend on MFPAK events to trigger this component
+
 1.4
 * Added a reduce step which creates symlinks to all the dissemination files
 
