@@ -54,7 +54,7 @@ public class LinkUtils {
         log.debug("Creating symbolic link from {} to {}.", symlinkFileAbsolutePath, outputPathString);
         Process proc = rt.exec(new String[]{"ln", "-s", outputPathString, symlinkFileAbsolutePath});
         int exitValue = proc.waitFor();
-        if (!(new File(outputPathString).exists())) {
+        if (!(new File(symlinkFileAbsolutePath).exists())) {
             throw new IOException("Failed to create link for " + outputPathString + " at " + symlinkFileAbsolutePath);
         }
         return symlinkFileAbsolutePath;
