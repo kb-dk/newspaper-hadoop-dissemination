@@ -31,7 +31,7 @@ public class DisseminationRunnableComponentTest {
                 "/net/zone1.isilon.sblokalnet/ifs/archive/bitmag-devel01-data/cache/avisbits/perm/avis/");
         properties.setProperty(ConfigConstants.HADOOP_USER, "newspapr");
         properties.setProperty(ConfigConstants.FILES_PER_MAP_TASK, "5");
-        properties.setProperty(SymlinkCreatorReducer.SYMLINK_ROOTDIR_PATH, "/avis-show/symlinks");
+        properties.setProperty(SymlinkCreatorReducer.SYMLINK_ROOTDIR_PATH, "/avis-show-devel/test/symlinks");
         properties.setProperty(SymlinkCreatorReducer.SYMLINK_DEPTH, "4");
 
         properties.setProperty(DisseminationJob.JP2K_TO_PGM_COMMAND, "kdu_expand -num_threads 1 -fprec 8M");
@@ -39,7 +39,7 @@ public class DisseminationRunnableComponentTest {
         properties.setProperty(
                 DisseminationJob.PGM_TO_JP2K_COMMAND,
                 "kdu_compress -rate 0.7,0.5,0.35,0.25,0.18,0.125,0.088,0.0625,0.04419,0.03125,0.0221,0.015625 Cmodes=BYPASS Cuse_sop=yes Cuse_eph=yes Clevels=6 Cprecincts={256,256},{256,256},{128,128} Corder=RPCL ORGtparts=R Cblk={64,64} ORGgen_plt=yes Stiles={1024,1024}");
-        properties.setProperty(DisseminationJob.PGM_TO_JP2K_OUTPUT_PATH, "/avis-show/");
+        properties.setProperty(DisseminationJob.PGM_TO_JP2K_OUTPUT_PATH, "/avis-show-devel/test/");
 
 
         clean(properties.getProperty(ConfigConstants.JOB_FOLDER));
