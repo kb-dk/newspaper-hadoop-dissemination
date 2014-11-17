@@ -9,7 +9,7 @@ public class PgmToDisseminationMapper extends ConvertMapper {
 
     @Override
     protected File getConvertedPath(String dataPath) {
-        File superPath = super.getConvertedPath(dataPath);
+        File superPath = new File(getBatchFolder().getParentFile(), new File(dataPath + ".jp2").getName());
         String path = superPath.getAbsolutePath().replaceAll("_", File.separator).replaceAll("\\.jp2.*$", "").concat("-presentation.jp2");
         File file = new File(path);
         file.getParentFile().mkdirs();
