@@ -10,7 +10,6 @@ import dk.statsbiblioteket.medieplatform.hadoop.DisseminationJob;
 import dk.statsbiblioteket.medieplatform.hadoop.LinkUtils;
 import dk.statsbiblioteket.medieplatform.hadoop.SymlinkCreatorReducer;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.slf4j.Logger;
@@ -23,12 +22,14 @@ import java.net.MalformedURLException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 /**
  * Utility for adding symlinks to a batch for which presentation copies have already been created,
  */
 public class SymlinkCreatorApplication {
 
+    private static final String PRESENTATION_COPY_SUFFIX = "-presentation.jp2";
     private static Logger log = LoggerFactory.getLogger(SymlinkCreatorApplication.class);
 
     private static void usage() {
@@ -58,8 +59,6 @@ public class SymlinkCreatorApplication {
             usage();
             System.exit(2);
         }
-
-        // TODO Here, insert fix of "double-batch-numbers in path"
 
         log.debug("Reading roundtrip dissemination files from {}.", roundtripRoot.getAbsolutePath());
         File symlinkRoot = new File(properties.getProperty(SymlinkCreatorReducer.SYMLINK_ROOTDIR_PATH));
@@ -102,7 +101,7 @@ public class SymlinkCreatorApplication {
 
                 @Override
                 public boolean accept(File dir, String name) {
-                    return FilenameUtils.getExtension(name).equals("jp2");
+                    return name.endsWith(PRESENTATION_COPY_SUFFIX);
                 }
             };
     }
@@ -134,7 +133,12 @@ public class SymlinkCreatorApplication {
         log.debug("Found {} dissemination files.", files.size());
         for (File file: files) {
             String pathInBatch = file.getCanonicalPath().replace(roundtripRoot.getParentFile().getCanonicalPath() + File.separator, "");
-            pathInBatch = "path:" + pathInBatch.replaceAll("_", "/");   //Is this necessary?
+            pathInBatch = "path:" + pathInBatch;
+            if (pathInBatch.endsWith("-brik" + PRESENTATION_COPY_SUFFIX)) {
+                pathInBatch = pathInBatch.replaceAll(Pattern.quote(PRESENTATION_COPY_SUFFIX) + "$", ".jp2");
+            } else {
+                pathInBatch = pathInBatch.replaceAll(Pattern.quote(PRESENTATION_COPY_SUFFIX) + "$", "");
+            }
             List<String> hits = enhancedFedora.findObjectFromDCIdentifier(pathInBatch);
             if (hits.isEmpty()) {
                 throw new RuntimeException("Failed to look up doms object for DC identifier '" + pathInBatch + "'");
@@ -148,8 +152,4 @@ public class SymlinkCreatorApplication {
             }
         }
     }
-
-
-
-
 }
