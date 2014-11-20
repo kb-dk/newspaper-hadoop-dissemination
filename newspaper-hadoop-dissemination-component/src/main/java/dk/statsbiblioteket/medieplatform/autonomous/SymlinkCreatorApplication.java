@@ -133,12 +133,7 @@ public class SymlinkCreatorApplication {
         log.debug("Found {} dissemination files.", files.size());
         for (File file: files) {
             String pathInBatch = file.getCanonicalPath().replace(roundtripRoot.getParentFile().getCanonicalPath() + File.separator, "");
-            pathInBatch = "path:" + pathInBatch;
-            if (pathInBatch.endsWith("-brik" + PRESENTATION_COPY_SUFFIX)) {
-                pathInBatch = pathInBatch.replaceAll(Pattern.quote(PRESENTATION_COPY_SUFFIX) + "$", ".jp2");
-            } else {
-                pathInBatch = pathInBatch.replaceAll(Pattern.quote(PRESENTATION_COPY_SUFFIX) + "$", "");
-            }
+            pathInBatch = "path:" + pathInBatch.replaceAll(Pattern.quote(PRESENTATION_COPY_SUFFIX) + "$", "");
             List<String> hits = enhancedFedora.findObjectFromDCIdentifier(pathInBatch);
             if (hits.isEmpty()) {
                 throw new RuntimeException("Failed to look up doms object for DC identifier '" + pathInBatch + "'");
