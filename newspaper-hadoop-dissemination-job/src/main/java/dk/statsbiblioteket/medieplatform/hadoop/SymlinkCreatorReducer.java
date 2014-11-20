@@ -33,7 +33,7 @@ public class SymlinkCreatorReducer extends AbstractDomsReducer {
     protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
         log.debug("Doing reduce ...");
         try {
-            Text pageKey = new Text(key.toString().replace(".jp2",""));
+            Text pageKey = new Text(key.toString().replaceAll("\\.jp2$",""));
             String pid = getDomsPid(pageKey);
             String outputPathString = values.iterator().next().toString();
             String symlinkRoot = context.getConfiguration().get(SYMLINK_ROOTDIR_PATH);
