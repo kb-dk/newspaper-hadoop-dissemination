@@ -13,7 +13,8 @@ public class PgmToDisseminationMapper extends ConvertMapper {
         String path = superPath.getAbsolutePath().replaceAll("_", File.separator).replaceAll("\\.jp2.*$", "").concat("-presentation.jp2");
         File file = new File(path);
         file.getParentFile().mkdirs();
-        return file;
+
+
 
     }
 
