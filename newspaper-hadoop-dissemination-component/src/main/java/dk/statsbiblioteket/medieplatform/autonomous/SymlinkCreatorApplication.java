@@ -110,8 +110,11 @@ public class SymlinkCreatorApplication {
         String username = properties.getProperty(ConfigConstants.DOMS_USERNAME);
         String password = properties.getProperty(ConfigConstants.DOMS_PASSWORD);
         String domsUrl = properties.getProperty(ConfigConstants.DOMS_URL);
+        int fedoraRetries = Integer.parseInt(properties.getProperty(ConfigConstants.FEDORA_RETRIES, "1"));
+        int fedoraDelayBetweenRetries = Integer.parseInt(properties.getProperty(ConfigConstants.FEDORA_DELAY_BETWEEN_RETRIES, "100"));
         return new EnhancedFedoraImpl(
-                new Credentials(username, password), domsUrl, null, null);
+                new Credentials(username, password), domsUrl, null, null, fedoraRetries, fedoraRetries, fedoraRetries,
+                fedoraDelayBetweenRetries);
     }
 
     /**
