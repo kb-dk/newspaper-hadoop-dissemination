@@ -113,7 +113,7 @@ public class SymlinkCreatorApplication {
         int fedoraRetries = Integer.parseInt(properties.getProperty(ConfigConstants.FEDORA_RETRIES, "1"));
         int fedoraDelayBetweenRetries = Integer.parseInt(properties.getProperty(ConfigConstants.FEDORA_DELAY_BETWEEN_RETRIES, "100"));
         return new EnhancedFedoraImpl(
-                new Credentials(username, password), domsUrl, null, null, fedoraRetries, fedoraRetries, fedoraRetries,
+                new Credentials(username, password), domsUrl, null, null, fedoraRetries,
                 fedoraDelayBetweenRetries);
     }
 
