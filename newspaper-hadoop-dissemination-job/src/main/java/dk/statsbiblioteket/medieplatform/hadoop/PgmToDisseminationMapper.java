@@ -9,11 +9,15 @@ public class PgmToDisseminationMapper extends ConvertMapper {
 
     @Override
     protected File getConvertedPath(String dataPath) {
-        File superPath = new File(getBatchFolder().getParentFile(), new File(dataPath + ".jp2").getName());
-        String path = superPath.getAbsolutePath().replaceAll("_", File.separator).replaceAll("\\.jp2.*$", "").concat("-presentation.jp2");
-        File file = new File(path);
+        File file = getDisseminationCopyFile(dataPath);
         file.getParentFile().mkdirs();
         return file;
+    }
+    
+    private File getDisseminationCopyFile(String dataPath) {
+        File superPath = new File(getBatchFolder().getParentFile(), new File(dataPath + ".jp2").getName());
+        String path = superPath.getAbsolutePath().replaceAll("_", File.separator).replaceAll("\\.jp2.*$", "").concat("-presentation.jp2");
+        return new File(path);
     }
 
     /**
@@ -23,11 +27,25 @@ public class PgmToDisseminationMapper extends ConvertMapper {
     @Override
     protected void map(Text key, Text value, Context context) throws IOException, InterruptedException {
         super.map(key, value, context);
-        File pgmFile = new File(value.toString());
+        removeIntermediateFile(value.toString());
+        checkDisseminationCopy(value.toString());
+    }
+    
+    private void removeIntermediateFile(String dataFile) {
+        File pgmFile = new File(dataFile);
         pgmFile.delete();
-        File disseminationCopy = getConvertedPath(value.toString());
+        
+    }
+    
+    private void checkDisseminationCopy(String dataFile) throws IOException {
+        File disseminationCopy = getDisseminationCopyFile(dataFile);
+        if(!disseminationCopy.exists() || !disseminationCopy.isFile()) {
+            String message = "Created dissemination copy does not exist or is no file ('" + disseminationCopy.getAbsolutePath() + "'). " +
+                    "Something went wrong here.";
+            throw new IOException(message);
+        }
         if(!(disseminationCopy.length() > 0)) {
-            String message = "Created dissemination copy ('" + disseminationCopy.getCanonicalFile() + "') " +
+            String message = "Created dissemination copy ('" + disseminationCopy.getAbsolutePath() + "') " +
                     "was of size " + disseminationCopy.length() + ". Something went wrong here.";
             throw new IOException(message);
         } 
