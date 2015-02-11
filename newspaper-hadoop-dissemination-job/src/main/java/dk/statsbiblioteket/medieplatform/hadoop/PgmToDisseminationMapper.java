@@ -16,10 +16,20 @@ public class PgmToDisseminationMapper extends ConvertMapper {
         return file;
     }
 
+    /**
+     * Map method, uses the super ConvertMapper to create a dissemination jp2-file. 
+     * The temporary pgm-file is removed, and the outputted jp2-file get its size checked to be larger than 0. 
+     */
     @Override
     protected void map(Text key, Text value, Context context) throws IOException, InterruptedException {
         super.map(key, value, context);
         File pgmFile = new File(value.toString());
         pgmFile.delete();
+        File disseminationCopy = getConvertedPath(value.toString());
+        if(!(disseminationCopy.length() > 0)) {
+            String message = "Created dissemination copy ('" + disseminationCopy.getCanonicalFile() + "') " +
+                    "was of size " + disseminationCopy.length() + ". Something went wrong here.";
+            throw new IOException(message);
+        } 
     }
 }
