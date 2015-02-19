@@ -1,6 +1,10 @@
+1.6
+* Introduce check to ensure that generated dissemination copies are not of size 0.
+* Fix classpath problems from earlier releases
+
 1.5
 * Use newest version of item event framework. No functional changes for this module.
-* Do not depend on MFPAK events to trigger this component
+* Do not depend on MFPAK events to trigger this component.
 * Configuration has been extended and changed and example config has been updated. Please update your configuration files.
 
 1.4
