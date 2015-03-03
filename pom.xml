@@ -77,19 +77,19 @@
             <dependency>
                 <groupId>dk.statsbiblioteket.newspaper</groupId>
                 <artifactId>hadoop-component</artifactId>
-                <version>2.6-SNAPSHOT</version>
+                <version>2.7-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>dk.statsbiblioteket.newspaper</groupId>
                 <artifactId>hadoop-doms-integration</artifactId>
-                <version>2.6-SNAPSHOT</version>
+                <version>2.7-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>dk.statsbiblioteket.newspaper</groupId>
                 <artifactId>hadoop-file-converters</artifactId>
-                <version>2.6-SNAPSHOT</version>
+                <version>2.7-SNAPSHOT</version>
             </dependency>
 
             <dependency>
