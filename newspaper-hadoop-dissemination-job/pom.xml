@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>dk.statsbiblioteket.medieplatform.hadoop</groupId>
-        <artifactId>newspaper-dissemination-pictures</artifactId>
+        <artifactId>newspaper-hadoop-dissemination</artifactId>
         <version>1.7-SNAPSHOT</version>
     </parent>
 
